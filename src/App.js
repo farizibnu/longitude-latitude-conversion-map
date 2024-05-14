@@ -1,23 +1,25 @@
-import logo from './logo.svg';
+import React, {useState} from 'react';
+import MapComponent from './components/Maps/Map';
+import ToggleButton from './components/Toggle-Button/ToggleButton';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
+  const toggleForm = () => {
+    setIsFormOpen(!isFormOpen);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className='flex w-full'>
+        <div className="relative w-full h-screen bg-white p-8 rounded-xl">
+          <MapComponent />
+          <div className='absolute top-6 right-6'>
+            <ToggleButton/>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
