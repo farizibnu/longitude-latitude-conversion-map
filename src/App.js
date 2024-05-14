@@ -1,14 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import MapComponent from './components/Maps/Map';
 import ToggleButton from './components/Toggle-Button/ToggleButton';
 import './App.css';
 
 const App = () => {
-  const [isFormOpen, setIsFormOpen] = useState(false);
-
-  const toggleForm = () => {
-    setIsFormOpen(!isFormOpen);
-  };
 
   return (
     <div>
