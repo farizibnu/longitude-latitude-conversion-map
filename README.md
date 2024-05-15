@@ -12,9 +12,9 @@ Project ini merupakan React application untuk melakukan konversi koordinat antar
 ### Clone Repository
 1. Buka terminal
 2. Clone repository
-```shell
-git clone https://github.com/farizibnu/longitude-latitude-conversion-map.git
-```
+    ```shell
+    git clone https://github.com/farizibnu/longitude-latitude-conversion-map.git
+    ```
 
 ## Menjalankan Project
 1. Buka terminal.
