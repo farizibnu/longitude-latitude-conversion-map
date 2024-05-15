@@ -11,6 +11,11 @@ import { Point } from 'ol/geom';
 import { Feature } from 'ol';
 import { Icon, Style } from 'ol/style';
 
+/**
+ * MapComponent renders an OpenLayers map and displays markers based on provided coordinates.
+ * 
+ * @returns {JSX.Element} The rendered MapComponent.
+ */
 const MapComponent = () => {
   const mapElement = useRef();
   const mapRef = useRef();

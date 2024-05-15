@@ -1,6 +1,11 @@
 import React from 'react'
 import { RiRoadMapFill } from "react-icons/ri";
 
+/**
+ * Header component that provides title for the website.
+ * 
+ * @returns {JSX.Element} The rendered Header component.
+ */
 const Header = () => {
   return (
     <div>

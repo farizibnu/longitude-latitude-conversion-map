@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import DMStoDDForm from './DMStoDDForm';
 import DDtoDMSForm from './DDtoDMSForm';
 
+/**
+ * ConversionForm component that provides tabs for DMS to DD and DD to DMS conversion forms.
+ * 
+ * @returns {JSX.Element} The rendered ConversionForm component.
+ */
 const ConversionForm = () => {
   const [activeTab, setActiveTab] = useState('DMS to DD');
 

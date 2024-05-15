@@ -2,6 +2,11 @@ import React, { useState, useContext } from 'react';
 import { SiConvertio } from "react-icons/si";
 import { MapContext } from '../Maps/MapContext';
 
+/**
+ * DDtoDMSForm component that provides a form to convert DD to DMS and add the result to the map.
+ * 
+ * @returns {JSX.Element} The rendered DDtoDMSForm component.
+ */
 const DDtoDMSForm = () => {
   const [latitudeDD, setLatitudeDD] = useState('');
   const [longitudeDD, setLongitudeDD] = useState('');

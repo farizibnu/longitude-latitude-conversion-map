@@ -5,6 +5,11 @@ import ConversionForm from '../Forms/ConversionForm';
 
 import { LuSettings } from "react-icons/lu";
 
+/**
+ * ToggleButton component that renders a button to open and close a conversion form.
+ * 
+ * @returns {JSX.Element} The rendered ToggleButton component.
+ */
 const ToggleButton = () => {
   const [open, setOpen] = useState(false);
 

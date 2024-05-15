@@ -1,5 +1,8 @@
 import React, { createContext, useState } from 'react';
 
+/**
+ * Context for managing map state, including coordinates.
+ */
 export const MapContext = createContext();
 
 export const MapProvider = ({ children }) => {

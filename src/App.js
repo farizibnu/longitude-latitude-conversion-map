@@ -5,6 +5,11 @@ import './App.css';
 import Header from './components/Header/Header';
 import { MapProvider } from './components/Maps/MapContext'; 
 
+/**
+ * The main App component that sets up the application structure.
+ * 
+ * @returns {JSX.Element} The rendered App component.
+ */
 const App = () => {
   return (
     <MapProvider>
