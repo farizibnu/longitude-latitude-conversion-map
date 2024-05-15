@@ -1,10 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { SiConvertio } from "react-icons/si";
+import { MapContext } from '../Maps/MapContext';
 
 const DDtoDMSForm = () => {
   const [latitudeDD, setLatitudeDD] = useState('');
   const [longitudeDD, setLongitudeDD] = useState('');
   const [result, setResult] = useState(null);
+  const [error, setError] = useState('');
+  const { addMarker } = useContext(MapContext);
+
+  const isValidDD = (latitude, longitude) => {
+    const lat = parseFloat(latitude);
+    const lon = parseFloat(longitude);
+    if (isNaN(lat) || isNaN(lon)) {
+      return false;
+    }
+    if (lat < -90 || lat > 90) {
+      return false;
+    }
+    if (lon < -180 || lon > 180) {
+      return false;
+    }
+    return true;
+  };
 
   const convertDDtoDMS = (dd) => {
     const absolute = Math.abs(dd);
@@ -17,9 +35,23 @@ const DDtoDMSForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!isValidDD(latitudeDD) || !isValidDD(longitudeDD)) {
+      setError('Invalid DD format. Latitude must be between -90 and 90, and Longitude must be between -180 and 180.');
+      return;
+    }
+    setError('');
     const latitudeDMS = convertDDtoDMS(parseFloat(latitudeDD)) + (latitudeDD >= 0 ? ' N' : ' S');
     const longitudeDMS = convertDDtoDMS(parseFloat(longitudeDD)) + (longitudeDD >= 0 ? ' E' : ' W');
-    setResult(`Latitude: ${latitudeDMS}, Longitude: ${longitudeDMS}`);
+    setResult({
+      latitude: latitudeDMS,
+      longitude: longitudeDMS
+    });
+  };
+
+  const handleAddToMap = () => {
+    if (result) {
+      addMarker([parseFloat(longitudeDD), parseFloat(latitudeDD)]);
+    }
   };
 
   return (
@@ -44,7 +76,7 @@ const DDtoDMSForm = () => {
             type="text"
             value={latitudeDD}
             onChange={(e) => setLatitudeDD(e.target.value)}
-            placeholder="e.g. 12.345678"
+            placeholder="e.g. 34.567"
             className="mt-2 block w-full px-4 py-2 bg-black border border-gray-700 rounded-full ring-1 ring-inset ring-gray-800 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-500 transition duration-300 outline-none"
           />
         </div>
@@ -54,10 +86,11 @@ const DDtoDMSForm = () => {
             type="text"
             value={longitudeDD}
             onChange={(e) => setLongitudeDD(e.target.value)}
-            placeholder="e.g. 98.765432"
+            placeholder="e.g. -123.456"
             className="mt-2 block w-full px-4 py-2 bg-black border border-gray-700 rounded-full ring-1 ring-inset ring-gray-800 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-500 transition duration-300 outline-none"
           />
         </div>
+        {error && <p className="text-red-500 text-xs">{error}</p>}
         <button
           type="submit"
           className="px-4 py-2 w-full rounded-full bg-emerald-500 text-white font-bold hover:bg-emerald-600"
@@ -68,7 +101,13 @@ const DDtoDMSForm = () => {
       {result && (
         <div className="mt-4 p-3 border-2 border-gray-700 rounded-xl">
           <p className="text-sm font-bold">Result:</p>
-          <p className="text-xs">{result}</p>
+          <p className="text-xs">Latitude: {result.latitude}, Longitude: {result.longitude}</p>
+          <button
+            onClick={handleAddToMap}
+            className="mt-2 px-4 py-2 w-full rounded-full bg-emerald-500 text-white font-bold hover:bg-emerald-600"
+          >
+            Add to Map
+          </button>
         </div>
       )}
     </div>

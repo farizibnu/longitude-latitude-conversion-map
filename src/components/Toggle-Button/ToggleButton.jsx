@@ -14,8 +14,10 @@ const ToggleButton = () => {
 
   return (
     <>
-      <Button onClick={toggleDrawer} variant="contained" style={{ position: 'absolute', top: '20px', right: '20px', backgroundColor: 'white', width: '4rem', height: '3rem'}}>
-        <LuSettings className='text-black w-24 h-auto' />
+      <Button onClick={toggleDrawer} variant="contained"  
+        style={{ position: 'absolute', top: '20px', right: '20px', backgroundColor: 'white', width: '4rem', height: '3rem'}}
+      >
+        <LuSettings className='text-black w-24 h-auto hover:text-emerald-500 hover:animate-[spin_1.5s_linear_0.5]' />
       </Button>
       <Drawer anchor="right" open={open} onClose={toggleDrawer}>
         <div style={{ width: '400px' }}>

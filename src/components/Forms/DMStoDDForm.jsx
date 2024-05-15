@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { SiConvertio } from "react-icons/si";
+import { MapContext } from '../Maps/MapContext'; 
 
 const DMStoDDForm = () => {
   const [latitudeDMS, setLatitudeDMS] = useState('');
   const [longitudeDMS, setLongitudeDMS] = useState('');
   const [result, setResult] = useState(null);
+  const [error, setError] = useState('');
+  const { addMarker } = useContext(MapContext);
 
   const cleanDMSInput = (dms) => {
     return dms.replace(/[^\d\s.]+/g, '').trim();
+  };
+
+  const isValidDMS = (dms) => {
+    const parts = cleanDMSInput(dms).split(/\s+/);
+    if (parts.length !== 3 || parts.some(part => isNaN(part))) {
+      return false;
+    }
+    return true;
   };
 
   const convertDMStoDD = (dms, direction) => {
@@ -25,9 +36,17 @@ const DMStoDDForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!isValidDMS(latitudeDMS) || !isValidDMS(longitudeDMS)) {
+      setError('Invalid DMS format. Please enter in "Degrees Minutes Seconds Direction" format.');
+      return;
+    }
+    setError('');
     const latitudeDD = convertDMStoDD(latitudeDMS, latitudeDMS.slice(-1));
     const longitudeDD = convertDMStoDD(longitudeDMS, longitudeDMS.slice(-1));
-    setResult(`Latitude: ${latitudeDD.toFixed(6)}, Longitude: ${longitudeDD.toFixed(6)}`);
+    setResult({
+      latitude: latitudeDD.toFixed(6),
+      longitude: longitudeDD.toFixed(6)
+    });
   };
 
   const formatDMS = (value) => {
@@ -38,6 +57,12 @@ const DMStoDDForm = () => {
 
   const handleBlur = (e, setValue) => {
     setValue(formatDMS(e.target.value));
+  };
+
+  const handleAddToMap = () => {
+    if (result) {
+      addMarker([parseFloat(result.longitude), parseFloat(result.latitude)]);
+    }
   };
 
   return (
@@ -78,6 +103,7 @@ const DMStoDDForm = () => {
             className="mt-2 block w-full px-4 py-2 bg-black border border-gray-700 rounded-full ring-1 ring-inset ring-gray-800 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-500 transition duration-300 outline-none"
           />
         </div>
+        {error && <p className="text-red-500 text-xs">{error}</p>}
         <button
           type="submit"
           className="px-4 py-2 w-full rounded-full bg-emerald-500 text-white font-bold hover:bg-emerald-600"
@@ -88,7 +114,13 @@ const DMStoDDForm = () => {
       {result && (
         <div className="mt-4 p-3 border-2 border-gray-700 rounded-xl">
           <p className="text-sm font-bold">Result:</p>
-          <p className="text-xs">{result}</p>
+          <p className="text-xs">Latitude: {result.latitude}, Longitude: {result.longitude}</p>
+          <button
+            onClick={handleAddToMap}
+            className="mt-2 px-4 py-2 w-full rounded-full bg-emerald-500 text-white font-bold hover:bg-emerald-600"
+          >
+            Add to Map
+          </button>
         </div>
       )}
     </div>

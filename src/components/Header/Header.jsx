@@ -8,7 +8,7 @@ const Header = () => {
             <div className='text-emerald-500 bg-white rounded-xl p-2.5'>
                 <RiRoadMapFill className='h-5 w-5'/>
             </div>
-            <p className='text-white text-lg'>Longitude & Latitude Conversion Map</p>
+            <p className='text-white text-2xl tracking-wide header-font mt-1'>Longitude & Latitude Conversion Map</p>
         </div>
     </div>
   )
