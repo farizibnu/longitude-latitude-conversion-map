@@ -33,7 +33,15 @@ git clone https://github.com/farizibnu/longitude-latitude-conversion-map.git
 
 ## Menjalankan Unit Test
 1. Buka terminal.
-2. Jalankan perintah berikut untuk menjalankan unit test:
+2. Masuk ke direktori repository.
+   ```
+   cd longitude-latitude-conversion-map
+   ```
+3. Install paket-paket yang dibutuhkan menggunakan perintah:
+   ```shell
+   npm i
+   ```
+4. Jalankan perintah berikut untuk menjalankan unit test:
    ```
    npm test
    ```
