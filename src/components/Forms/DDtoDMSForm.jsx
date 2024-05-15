@@ -9,19 +9,9 @@ const DDtoDMSForm = () => {
   const [error, setError] = useState('');
   const { addMarker } = useContext(MapContext);
 
-  const isValidDD = (latitude, longitude) => {
-    const lat = parseFloat(latitude);
-    const lon = parseFloat(longitude);
-    if (isNaN(lat) || isNaN(lon)) {
-      return false;
-    }
-    if (lat < -90 || lat > 90) {
-      return false;
-    }
-    if (lon < -180 || lon > 180) {
-      return false;
-    }
-    return true;
+  const isValidDD = (dd) => {
+    const value = parseFloat(dd);
+    return !isNaN(value) && Math.abs(value) <= 180;
   };
 
   const convertDDtoDMS = (dd) => {
